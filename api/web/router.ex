@@ -19,8 +19,11 @@ defmodule Api.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Api do
-  #   pipe_through :api
-  # end
+  scope "/api", Api do
+    pipe_through :api
+
+    resources "/shoppers", ShopperController, except: [:edit]
+    get "/shoppers/username/:username", ShopperController, :showuser
+    resources "/products", ProductController, except: [:edit]
+  end
 end
